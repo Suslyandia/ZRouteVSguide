@@ -512,11 +512,16 @@ html[data-theme="light"] .nav { background: rgba(252, 249, 243, 0.96); }
 .pwa-title { font-size: 15px; font-weight: 650; margin-bottom: 4px; }
 .pwa-title + .muted { margin-top: -2px; }
 
+/* ---------- iOS: вырез и статус-бар ---------- */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .topbar { padding-top: calc(12px + env(safe-area-inset-top)); }
+}
+
 </style>
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="VS-гид">
   <link rel="apple-touch-icon" href="icons/apple-touch-180.png">
   <link rel="icon" href="icons/icon-192.png" sizes="192x192">
@@ -571,7 +576,7 @@ html[data-theme="light"] .nav { background: rgba(252, 249, 243, 0.96); }
    источник: гайды сообщества S8 [NSKY], клиентские таблицы игры и вики Last Z.
    Числа могут отличаться в вашей версии игры — проверяйте по строке события. */
 const DATA = {
-  version: "0.2.12 Alpha",
+  version: "0.2.13 Alpha",
   updated: "2026-10-29",
 
   facts: [
@@ -1061,7 +1066,7 @@ window.DATA_RU = DATA;
 
 
 const DATA_EN = {
-  version: "0.2.12 Alpha",
+  version: "0.2.13 Alpha",
   updated: "2026-10-29",
 
   facts: [
@@ -3607,6 +3612,10 @@ window.STR = STR;
     var base = mskParts(now);
 
     if (opts.windows) {
+      // Одно напоминание на категорию в игровой день: в календаре бывает два окна одной
+      // активности подряд (например, среда: «Исследования» в 05:00 и 09:00), и два
+      // одинаковых уведомления подряд только мешают. Берём первое окно дня.
+      var windowSeen = {};
       for (var i = 0; i < 8; i++) {
         var dt = new Date(Date.UTC(base.y, base.m, base.d + i));
         var wd = dt.getUTCDay();
@@ -3617,6 +3626,9 @@ window.STR = STR;
           var si = SLOT_ORDER[k];
           var cat = row[si];
           if (cats.indexOf(cat) < 0) continue;
+          var winKey = dt.getUTCFullYear() + "-" + dt.getUTCMonth() + "-" + dt.getUTCDate() + "|" + cat;
+          if (windowSeen[winKey]) continue;
+          windowSeen[winKey] = 1;
           var parts = D().calendar.slots[si].split(":");
           var h = parseInt(parts[0], 10), mi = parseInt(parts[1], 10);
           var at = mskEpoch(dt.getUTCFullYear(), dt.getUTCMonth(), dt.getUTCDate() + (h < 5 ? 1 : 0), h, mi);

@@ -1,21 +1,21 @@
 {
-  "version": "0.2.12 Alpha",
-  "semver": "0.2.12",
-  "code": 23,
-  "tag": "v0.2.12",
-  "published": "2026-10-29T13:59:23Z",
-  "page": "https://github.com/Suslyandia/ZRouteVSguide/releases/tag/v0.2.12",
-  "notes": "**VS-гид 0.2.12 Alpha** — сборка от 29.10.2026.\n\nПриложение обновляется само: «Ещё → Обновления → Проверить обновления».\nУстановка идёт поверх старой версии, настройки и напоминания сохраняются.\n\n| Файл | Для чего |\n|---|---|\n| `ZRoute-VS-guide.apk` | установка на Android 5.0+ |\n| `vs-guide.html` | один файл без установки, открывается в браузере |\n\nSHA-256:\n- `ZRoute-VS-guide.apk` — `27e46e2e3f243f18a0967e847d4e05b075974d3811d698dc03a77f0884ad2135`\n- `vs-guide.html` — `9bd0d978bb096f65a98e27a1448b66e9fd8e0bf71d048f545f8ee3773593da8c`",
+  "version": "0.2.13 Alpha",
+  "semver": "0.2.13",
+  "code": 24,
+  "tag": "v0.2.13",
+  "published": "2026-10-29T14:38:00Z",
+  "page": "https://github.com/Suslyandia/ZRouteVSguide/releases/tag/v0.2.13",
+  "notes": "**VS-гид 0.2.13 Alpha** — сборка от 29.10.2026.\n\nПриложение обновляется само: «Ещё → Обновления → Проверить обновления».\nУстановка идёт поверх старой версии, настройки и напоминания сохраняются.\n\n| Файл | Для чего |\n|---|---|\n| `ZRoute-VS-guide.apk` | установка на Android 5.0+ |\n| `vs-guide.html` | один файл без установки, открывается в браузере |\n\nSHA-256:\n- `ZRoute-VS-guide.apk` — `0da81ea2bcca593e040d87e8d2ac99cd57d0b00837ffde37f1c0243b65b113fe`\n- `vs-guide.html` — `6f80d23e51dea4cfe3a4cb3c1aa29a9706c9578b82afd1ab4cb76ee8cf897a8b`",
   "apk": {
     "name": "ZRoute-VS-guide.apk",
-    "url": "https://github.com/Suslyandia/ZRouteVSguide/releases/download/v0.2.12/ZRoute-VS-guide.apk",
+    "url": "https://github.com/Suslyandia/ZRouteVSguide/releases/download/v0.2.13/ZRoute-VS-guide.apk",
     "size": 161253,
-    "sha256": "27e46e2e3f243f18a0967e847d4e05b075974d3811d698dc03a77f0884ad2135"
+    "sha256": "0da81ea2bcca593e040d87e8d2ac99cd57d0b00837ffde37f1c0243b65b113fe"
   },
   "html": {
     "name": "vs-guide.html",
-    "url": "https://github.com/Suslyandia/ZRouteVSguide/releases/download/v0.2.12/vs-guide.html",
-    "size": 213928,
-    "sha256": "9bd0d978bb096f65a98e27a1448b66e9fd8e0bf71d048f545f8ee3773593da8c"
+    "url": "https://github.com/Suslyandia/ZRouteVSguide/releases/download/v0.2.13/vs-guide.html",
+    "size": 214748,
+    "sha256": "6f80d23e51dea4cfe3a4cb3c1aa29a9706c9578b82afd1ab4cb76ee8cf897a8b"
   }
 }

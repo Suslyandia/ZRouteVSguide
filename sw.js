@@ -1,6 +1,6 @@
 /* Service worker PWA: офлайн-кэш, push, клик по уведомлению.
    Версия подставляется сборкой (tools/build-pwa.mjs) — она же инвалидирует кэш. */
-const VERSION = "0.2.12 Alpha";
+const VERSION = "0.2.13 Alpha";
 const CACHE = "vs-guide-" + VERSION;
 
 const SHELL = [
