@@ -571,7 +571,7 @@ html[data-theme="light"] .nav { background: rgba(252, 249, 243, 0.96); }
    источник: гайды сообщества S8 [NSKY], клиентские таблицы игры и вики Last Z.
    Числа могут отличаться в вашей версии игры — проверяйте по строке события. */
 const DATA = {
-  version: "0.2.11 Alpha",
+  version: "0.2.12 Alpha",
   updated: "2026-10-29",
 
   facts: [
@@ -1061,7 +1061,7 @@ window.DATA_RU = DATA;
 
 
 const DATA_EN = {
-  version: "0.2.11 Alpha",
+  version: "0.2.12 Alpha",
   updated: "2026-10-29",
 
   facts: [
@@ -2403,6 +2403,7 @@ window.STR = STR;
 
   var REPO = "Suslyandia/ZRouteVSguide";
   var API = "https://api.github.com/repos/" + REPO + "/releases/latest";
+  var MANIFEST = "version.json";            // лежит рядом с сайтом: без CORS и без лимитов
   var PAGE = "https://github.com/" + REPO + "/releases";
 
   var K_LAST = "vs.upd.last";
@@ -2613,6 +2614,13 @@ window.STR = STR;
       if (r.status === 403 || r.status === 429) throw "rate_limit";
       if (!r.ok) throw "http";
       return r.json();
+    })["catch"](function (e) {
+      // API исчерпал лимит — берём version.json, который лежит рядом с сайтом
+      if (e !== "rate_limit" && e !== "http") throw e;
+      return window.fetch(MANIFEST, { cache: "no-store" }).then(function (r) {
+        if (!r.ok) throw e;
+        return r.json().then(manifestAsApi);
+      });
     }).then(function (j) {
       onCheckData({
         ok: true, tag: j.tag_name, name: j.name, notes: j.body,
@@ -2624,6 +2632,35 @@ window.STR = STR;
     })["catch"](function (e) {
       fail(typeof e === "string" ? e : "network", silent);
     });
+  }
+
+  /** version.json → объект в форме ответа GitHub API, чтобы разбор остался одним. */
+  function manifestAsApi(m) {
+    var assets = [];
+    if (m.apk) {
+      assets.push({
+        name: m.apk.name,
+        browser_download_url: m.apk.url,
+        size: m.apk.size || 0,
+        digest: m.apk.sha256 ? "sha256:" + m.apk.sha256 : ""
+      });
+    }
+    if (m.html) {
+      assets.push({
+        name: m.html.name,
+        browser_download_url: m.html.url,
+        size: m.html.size || 0,
+        digest: m.html.sha256 ? "sha256:" + m.html.sha256 : ""
+      });
+    }
+    return {
+      tag_name: m.tag,
+      name: m.version || m.semver || m.tag,
+      body: m.notes || "",
+      published_at: m.published || "",
+      html_url: m.page || PAGE,
+      assets: assets
+    };
   }
 
   function pickAsset(j, ext) {
