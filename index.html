@@ -3100,7 +3100,8 @@ window.STR = STR;
 
   function canUseSW() {
     // service worker требует https (или localhost); на file:// его нет
-    return hasSW() && (location.protocol === "https:" || location.hostname === "localhost");
+    return hasSW() && (location.protocol === "https:" ||
+      location.hostname === "localhost" || location.hostname === "127.0.0.1");
   }
 
   /* ---------- установка на главный экран ---------- */
